@@ -27,23 +27,27 @@ class PatchEmbedder(nn.Module):
         ):
         super().__init__()
         
+        self.p_size = p_size
         self.embed = nn.Embedding(v_size, d_model)
         print(self.embed)
         return
     
-    def forward(self, x):
-        '''
-        args:
-        - x: [str]
-            - len(x) = emb_len * patch_size
-        output
-        - tensor(b, patch_size, d_emb)
+    def forward(self, x: str):
+        patches = [self.encode_patch(p) for p in 
+                   self.patcherize_str(x=x, p_size=self.p_size)]
         
-        '''
         return 
+    
+    def embed_patch(patch: list[int]) -> torch.Tensor:
+        
     
     @staticmethod
     def encode_patch(patch: str) -> torch.Tensor:
+        '''
+        'this'
+        -> 
+        [116, 104, 105, 115]
+        '''
         return [ord(char.encode('utf-8')) for char in patch]
     
     @staticmethod
